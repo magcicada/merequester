@@ -20,6 +20,7 @@ public final class MERequester {
     public static final String REQUESTER_ID = "requester";
 
     public MERequester() {
+        com.almostreliable.merequester.Registration.init();
         onInitialize();
     }
 
@@ -29,6 +30,9 @@ public final class MERequester {
         modEventBus.addListener(MERequester::onCommonSetup);
         modEventBus.addListener(MERequester::onRegistryEvent);
         modEventBus.addListener(MERequester::onCreativeTabContents);
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            modEventBus.addListener(this::clientSetup);
+        }
     }
 
     private static void onCommonSetup(FMLCommonSetupEvent event) {
