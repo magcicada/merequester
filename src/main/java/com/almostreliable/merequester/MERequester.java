@@ -41,7 +41,6 @@ public final class MERequester {
     }
 
     private static void onRegistryEvent(RegisterEvent event) {
-        com.almostreliable.merequester.Registration.init();
         ModTab.registerTab(event);
     }
 
