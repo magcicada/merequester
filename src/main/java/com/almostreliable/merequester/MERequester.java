@@ -22,7 +22,6 @@ public final class MERequester {
     public static final String REQUESTER_ID = "requester";
 
     public MERequester() {
-        com.almostreliable.merequester.Registration.init();
         onInitialize();
     }
 
@@ -42,6 +41,7 @@ public final class MERequester {
     }
 
     private static void onRegistryEvent(RegisterEvent event) {
+        com.almostreliable.merequester.Registration.init();
         ModTab.registerTab(event);
     }
 
