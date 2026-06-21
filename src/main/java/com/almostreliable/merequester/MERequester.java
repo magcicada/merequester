@@ -41,4 +41,10 @@ public final class MERequester {
     private static void onCreativeTabContents(BuildCreativeModeTabContentsEvent event) {
         ModTab.initContents(event);
     }
+
+    private void clientSetup(final FMLClientSetupEvent event) {
+    event.enqueueWork(() -> {
+        com.almostreliable.merequester.Registration.registerClientModels();
+    });
+}
 }
