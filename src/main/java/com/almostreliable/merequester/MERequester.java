@@ -5,6 +5,7 @@ import com.almostreliable.merequester.platform.Platform;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegisterEvent;
@@ -43,8 +44,6 @@ public final class MERequester {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-    event.enqueueWork(() -> {
-        com.almostreliable.merequester.Registration.registerClientModels();
-    });
-}
+        event.enqueueWork(Registration::registerClientModels);
+    }
 }
