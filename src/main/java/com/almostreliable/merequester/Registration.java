@@ -19,8 +19,17 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public final class Registration {
 
-    public static final ItemDefinition<PartItem<?>> TERMINAL = setupTerminal();
-    public static final BlockDefinition<RequesterBlock> REQUESTER = setupRequester();
+    private static class Holder {
+        static final ItemDefinition<PartItem<?>> TERMINAL = setupTerminal();
+        static final BlockDefinition<RequesterBlock> REQUESTER = setupRequester();
+    }
+
+    public static ItemDefinition<PartItem<?>> getTerminal() {
+        return Holder.TERMINAL;
+    }
+    public static BlockDefinition<RequesterBlock> getRequester() {
+        return Holder.REQUESTER;
+    }
 
     private Registration() {}
 
