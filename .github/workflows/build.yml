@@ -1,32 +1,37 @@
-name: Build
+name: Build mod
 
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - "1.20.1-forge"
-    tags-ignore:
-      - "**"
-    paths:
-      - "gradle/**"
-      - "**.java"
-      - "**.kts"
-      - "**.properties"
-      - "**/build.yml"
+    branches: ["1.20.1-forge"]
   pull_request:
-    branches:
-      - "1.20.1-forge"
-    paths:
-      - "gradle/**"
-      - "**.java"
-      - "**.kts"
-      - "**.properties"
-      - "**/build.yml"
+  workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+permissions:
+  contents: read
 
 jobs:
-  redirect:
-    uses: AlmostReliable/.github/.github/workflows/build-java17.yml@main
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build -x test --no-daemon
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: merequester
+          path: build/libs/*.jar
+          if-no-files-found: error
