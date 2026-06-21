@@ -28,8 +28,12 @@ public final class Registration {
         MERequester.LOGGER.info("Registering content");
     }
 
-    private static ItemDefinition<PartItem<?>> setupTerminal() {
+    public static void registerClientModels() {
         PartModels.registerModels(PartModelsHelper.createModels(RequesterTerminalPart.class));
+    }
+
+    private static ItemDefinition<PartItem<?>> setupTerminal() {
+        //PartModels.registerModels(PartModelsHelper.createModels(RequesterTerminalPart.class));
         return AEItemsMixin.merequester$aeItem(
             "",
             Utils.getRL(MERequester.TERMINAL_ID),
